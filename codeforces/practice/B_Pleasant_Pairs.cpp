@@ -5,31 +5,50 @@ using namespace std;
 #define ll long long
 #define endl '\n'
 
+
 int main() {
     fastio();
     
 int t;
 cin>>t;
 while(t--){
-    multiset<int> st;
+    multiset<ll> st;
     int n;
     cin>>n;
-    vector<int> nums(n);
-    for(int &x : nums){
-        cin>>x;
-        st.insert(x);
+    vector<ll> nums(n);
+    for(int i=0;i<n;i++){
+        cin>>nums[i];
+        st.insert(nums[i]);
     }
-    
+
     ll ans = 0;
-    for(int i=1;i<n;i++){
+    ll i = 1;
+    while(i<=n){
         st.erase(st.find(nums[i-1]));
-        int l = 2*i+1;
-        int h = n+i;
-
-        
+        auto it = st.begin();
+        while(it!=st.end()){
+            ll prd = *it  * nums[i-1];
+            int j = prd - i;
+            if(j>n){
+                break;
+            }
+            if(j<=i){
+                it++;
+                continue;
+            }
+            if(nums[j-1] == *it){
+                ans++;
+            }
+            it++;
+        }
+        i++;
     }
-
     cout<<ans<<endl;
+    
+    
+   
+
+   
 
 }
     
